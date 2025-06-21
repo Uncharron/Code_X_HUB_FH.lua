@@ -32,6 +32,7 @@ local AutoCollectHoneycontor = true
 local AutoHaverfuits = false
 local Autosellfruit = false
 local PlantSeedEQ = false
+local SeedEQOpen = false
 local AutoBuyEggEnabled = false
 local AutoBuyHonneyEnabled = false
 local AutoBuyGearEnabled = false
@@ -628,6 +629,60 @@ local function BuyEggByLocation()
     end
 end
 
+
+-- ฟังก์ชัน Equip เปิด แล้ว Unequip Seed Pack
+local function EquipUseAndUnequipSeedPack()
+    for _, item in ipairs(Backpack:GetChildren()) do
+        if string.find(item.Name, "Seed Pack") then
+            -- Equip ใส่มือ
+            item.Parent = LocalPlayer.Character
+            print("Equip: " .. item.Name)
+
+            -- ถ้าเป็น Tool ก็ Activate
+            if item:IsA("Tool") then
+                item:Activate()
+                print("เปิด Seed Pack: " .. item.Name)
+            end
+
+            -- รอสักนิดเผื่อเปิดเสร็จ
+            wait(0.25)
+
+            -- Unequip กลับ Backpack
+            item.Parent = Backpack
+            print("Unequip: " .. item.Name)
+
+            return true -- เจอแล้วจัดการเสร็จ
+        end
+    end
+
+    return false -- ไม่เจอ
+end
+
+-- Loop เปิดเรื่อย ๆ
+local function AutoOpenSeedPacks()
+    while SeedEQOpen do
+        if SeedEQOpen then
+            local opened = EquipUseAndUnequipSeedPack()
+
+        if not opened then
+            -- ไม่มี Seed Pack รอ 1.5 วิ
+            wait(1.5)
+        else
+            -- เจอแล้วเปิด รอ 0.5 วิก่อนเปิดอันต่อไป
+            wait(0.5)
+        end
+        end
+    end
+end
+
+
+
+
+
+
+
+
+
 local function getFlowerSeedPackUUID()
     local player = game:GetService("Players").LocalPlayer
     local backpack = player.Backpack
@@ -659,6 +714,8 @@ local function getFlowerBeeggUUID()
     end
     return nil
 end
+
+
 
 local function craftSeed()
     local uuid = getFlowerSeedPackUUID()
@@ -817,6 +874,10 @@ function MainController()
         end
         if PlantSeedEQ and AutoCollectHoneysetting then
            RandomPlantSeed()
+        end
+        if SeedEQOpen and AutoCollectHoneysetting then
+            -- เริ่ม Auto เปิด
+            AutoOpenSeedPacks()
         end
         if Autosellfruit then
             local unwantedCount = CountNotAllowedBuffFruits()
@@ -1090,6 +1151,14 @@ do
     Default = false,
     Callback = function(Value)
         PlantSeedEQ = Value
+    end
+    })
+     -- Toggle เปิด/ปิด Auto Buy
+    Tabs.Main:AddToggle("AutoOpenSeedPackToggle", {
+    Title = "Auto Open Seed Pack",
+    Default = false,
+    Callback = function(Value)
+        SeedEQOpen = Value
     end
     })
 

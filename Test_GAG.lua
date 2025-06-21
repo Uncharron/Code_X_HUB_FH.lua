@@ -761,7 +761,7 @@ local function craftEgg()
     game:GetService("ReplicatedStorage").GameEvents.CraftingGlobalObjectService:FireServer(unpack(args3))
 end
 
-function MainController2()
+local function MainController2()
     --while true do
         if AutoHaverfuits then
             -- เรียกใช้ฟังก์ชันสแกน
@@ -812,7 +812,7 @@ function MainController()
         if Autocraftseed then
            craftSeed()
         end
-        if AutoCollectHoney and AutoCollectHoneysetting then
+        if AutoCollectHoney and AutoCollectHoneysetting and AutoCollectHoneycontor then
            EquipAndUsePollinatedFruits()
         end
         if PlantSeedEQ and AutoCollectHoneysetting then
@@ -820,7 +820,7 @@ function MainController()
         end
         if Autosellfruit then
             local unwantedCount = CountNotAllowedBuffFruits()
-            if unwantedCount > 75 then
+            if unwantedCount > 70 then
                 AutoCollectHoneysetting = false
                 print("ผลไม้ที่ไม่ต้องการเกิน " .. Frutsedxc .. " จำนวน: " .. unwantedCount .. " ชิ้น, ทำการ TP และขาย")
                 TeleportToFarm()
@@ -828,6 +828,7 @@ function MainController()
                 ReturnToOriginalPosition()
             else
                 AutoCollectHoneysetting = true
+                AutoCollectHoneycontor = true
                 print("ผลไม้ที่ไม่ต้องการยังไม่ถึง " .. Frutsedxc .. " ชิ้น, ยังไม่ต้อง TP")
             end
         end
@@ -855,10 +856,9 @@ do
     Title = "Select Seeds",
     Description = "เลือกเมล็ดที่ต้องการซื้อ",
     Values = {
-        "Carrot", "Strawberry", "Blueberry", "Orange Tulip", "Tomato", "Corn",
-        "Daffodil", "Watermelon", "Pumpkin", "Apple", "Bamboo", "Coconut",
-        "Cactus", "Dragon Fruit", "Mango", "Grape", "Mushroom", "Pepper",
-        "Cacao", "Beanstalk","Ember Lily","Sugar Apple"
+        "Carrot Seed", "Strawberry Seed", "Blueberry Seed", "Tomato Seed", "Cauliflower Seed",
+    "Watermelon Seed", "Green Apple Seed", "Avocado Seed", "Banana Seed", "Pineapple Seed",
+    "Kiwi Seed", "Bell Pepper Seed", "Prickly Pear Seed", "Loquat Seed", "Feijoa Seed", "Sugar Seed",
     },
     Multi = true,
     Default = {}
@@ -892,7 +892,8 @@ do
     Values = {
         "Watering Can", "Trowel", "Recall Wrench", "Basic Sprinkler",
         "Advanced Sprinkler", "Godly Sprinkler", "Lightning Rod",
-        "Master Sprinkler", "Favorite Tool", "Harvest Tool","Friendship Pot"
+        "Master Sprinkler", "Favorite Tool", "Harvest Tool","Friendship Pot",
+        "Tanning Mirror", "Cleaning Spray"
     },
     Multi = true,
     Default = {}
@@ -1066,10 +1067,9 @@ do
     Title = "Select Seeds EQ",
     Description = "เลือกเมล็ดที่จะปลูก",
     Values = {
-        "Carrot Seed", "Strawberry Seed", "Blueberry Seed", "Orange Tulip Seed", "Tomato Seed", "Corn Seed",
-    "Daffodil Seed", "Watermelon Seed", "Pumpkin Seed", "Apple Seed", "Bamboo Seed", "Coconut Seed",
-    "Cactus Seed", "Dragon Fruit Seed", "Mango Seed", "Grape Seed", "Mushroom Seed", "Pepper Seed",
-    "Cacao Seed", "Beanstalk Seed", "Ember Lily Seed", "Sugar Apple Seed"
+        "Carrot Seed", "Strawberry Seed", "Blueberry Seed", "Tomato Seed", "Cauliflower Seed",
+    "Watermelon Seed", "Green Apple Seed", "Avocado Seed", "Banana Seed", "Pineapple Seed",
+    "Kiwi Seed", "Bell Pepper Seed", "Prickly Pear Seed", "Loquat Seed", "Feijoa Seed", "Sugar Seed",
     },
     Multi = true,
     Default = {}

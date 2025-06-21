@@ -925,7 +925,7 @@ do
     Description = "",
     Values = {
         "Common Egg", "Uncommon Egg", "Rare Egg",
-        "Legendary Egg", "Mythical Egg", "Bug Egg"
+        "Legendary Egg", "Mythical Egg", "Bug Egg", "Paradlse Egg"
     },
     Multi = true,
     Default = {}

@@ -807,12 +807,12 @@ function MainController()
            BuyEggByLocation()
         end
         if Autocraftegg then
-           craftEgg()
+           --craftEgg()
         end
         if Autocraftseed then
            craftSeed()
         end
-        if AutoCollectHoney and AutoCollectHoneysetting and AutoCollectHoneycontor then
+        if AutoCollectHoney and AutoCollectHoneysetting then
            EquipAndUsePollinatedFruits()
         end
         if PlantSeedEQ and AutoCollectHoneysetting then
@@ -828,7 +828,6 @@ function MainController()
                 ReturnToOriginalPosition()
             else
                 AutoCollectHoneysetting = true
-                AutoCollectHoneycontor = true
                 print("ผลไม้ที่ไม่ต้องการยังไม่ถึง " .. Frutsedxc .. " ชิ้น, ยังไม่ต้อง TP")
             end
         end
